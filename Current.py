@@ -36,3 +36,9 @@ NumWaitingCust = sum(1 for wt in WaitingTime if wt > 0)
 TotalTime = max(CompletionTime)
 WaitingProb = (WaitingTime / num_customers) * 100
 #Utilization1 = sum(ServiceTime1) /
+#MaxNumInQueue
+#AvgTimeInSystem
+
+#Histogram for waiting line
+
+#print a table for the top 15 customers
