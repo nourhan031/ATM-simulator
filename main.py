@@ -93,7 +93,11 @@ print("Maximum number in the queue: ")
 print("Average time in the system: ",AverageTIS)
 print()
 #histogram for waiting time
-
+plt.hist(WaitingTime, bins=20, edgecolor='black')
+plt.title('Histogram of Waiting Time')
+plt.xlabel('Waiting Time (minutes)')
+plt.ylabel('Frequency')
+plt.show()
 #print table
 num_elements = 15
 headers = ["Customer","InterArrival Time", "Arrival Time", "Service Start Time", "Waiting Time", "Service Time", "Completion Time", "Time In System", "ATM1", "ATM2"]
