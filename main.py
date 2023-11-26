@@ -4,7 +4,7 @@ import math
 import matplotlib.pyplot as plt
 from tabulate import tabulate
 
-num_customers = 10
+num_customers = 10000
 Customers = []
 InterArrivalTime = []
 ArrivalTime = []
@@ -27,6 +27,7 @@ ServiceTime1 = []
 ServiceTime2 = []
 in1=0
 in2=0
+maxInQueue = 0
 
 
 
@@ -74,7 +75,14 @@ for i in range(num_customers):
 
         TimeInSystem.append(CompletionTime[i] - ArrivalTime[i])
 
-
+for i in range(0,num_customers-1):
+    c = 1
+    for j in range(i+1,num_customers):
+        if CompletionTime[i] > ArrivalTime[j]:
+            c = c+1
+        else:
+            maxInQueue = max(c,maxInQueue)
+            break
 AvgWaitingTime= sum(WaitingTime)/num_customers
 NumWaitingCust = sum(1 for wt in WaitingTime if wt > 0)
 TotalTime = max(CompletionTime)
@@ -89,7 +97,7 @@ print("The total time of the simulation: ",TotalSimTime)
 print("The probability that a customer will have to wait: ",ProbOfWaiting)
 print("Utilization of ATM1: ",UtilizationOfATM1)
 print("Utilization of ATM2: ",UtilizationOfATM2)
-print("Maximum number in the queue: ")
+print("Maximum number in the queue: ",maxInQueue)
 print("Average time in the system: ",AverageTIS)
 print()
 #histogram for waiting time
