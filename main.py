@@ -25,8 +25,6 @@ def generate_ST():
 #(Normal distribution with mean=2, std=0.5)
 ServiceTime1 = []
 ServiceTime2 = []
-in1=0
-in2=0
 maxInQueue = 0
 
 
@@ -44,8 +42,7 @@ for i in range(num_customers):
         ST = math.floor(ST * 10) / 10
         ServiceTime.append(ST)
         ServiceTime1.append(ST)
-        in1 = in1+1
-        CompletionTime.append(StartTime[i]+ ServiceTime1[i])
+        CompletionTime.append(StartTime[i]+ ServiceTime[i])
         TimeInSystem.append(CompletionTime[i] - ArrivalTime[i])
         ATM1.append(CompletionTime[i])
         ATM2.append(0)
@@ -62,27 +59,24 @@ for i in range(num_customers):
         ServiceTime.append(ST)
         if atm==ATM1[i-1]:
             ServiceTime1.append(ST)
-            CompletionTime.append(StartTime[i] + ServiceTime1[in1])
-            in1 = in1+1
+            CompletionTime.append(StartTime[i] + ServiceTime[i])
             ATM1.append(CompletionTime[i])
             ATM2.append(ATM2[i-1])
         else:
             ServiceTime2.append(ST)
-            CompletionTime.append(StartTime[i] + ServiceTime2[in2])
-            in2 =in2+1
+            CompletionTime.append(StartTime[i] + ServiceTime[i])
             ATM2.append(CompletionTime[i])
             ATM1.append(ATM1[i-1])
 
         TimeInSystem.append(CompletionTime[i] - ArrivalTime[i])
+c = 0
+for i in range(num_customers):
+    if(WaitingTime[i] > 0):
+        c = c+1
+    else:
+        maxInQueue = max(c,maxInQueue)
+        c = 0
 
-for i in range(0,num_customers-1):
-    c = 1
-    for j in range(i+1,num_customers):
-        if CompletionTime[i] > ArrivalTime[j]:
-            c = c+1
-        else:
-            maxInQueue = max(c,maxInQueue)
-            break
 AvgWaitingTime= sum(WaitingTime)/num_customers
 NumWaitingCust = sum(1 for wt in WaitingTime if wt > 0)
 TotalTime = max(CompletionTime)
@@ -113,3 +107,4 @@ data = list(zip(Customers[:num_elements],InterArrivalTime[:num_elements], Arriva
                 ServiceTime[:num_elements], CompletionTime[:num_elements], TimeInSystem[:num_elements], ATM1[:num_elements], ATM2[:num_elements]))
 table = tabulate(data, headers, tablefmt="fancy_grid")
 print(table)
+
