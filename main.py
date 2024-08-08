@@ -108,3 +108,4 @@ data = list(zip(Customers[:num_elements],InterArrivalTime[:num_elements], Arriva
 table = tabulate(data, headers, tablefmt="fancy_grid")
 print(table)
 
+# test
